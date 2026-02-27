@@ -80,8 +80,8 @@ Plataforma colaborativa desarrollada con arquitectura **MVC profesional** que pe
 
 ```bash
 # 1. Clonar el repositorio (o descargar ZIP)
-git clone https://github.com/Crypt0xDev/FISI-2025-II.git
-cd FISI-2025-II
+git clone https://github.com/FISI-2025-II/FisiCollab.git
+cd FisiCollab
 
 # 2. Configuración automática (instala dependencias + crea BD)
 npm run setup
@@ -125,7 +125,7 @@ npm start
 ## 📁 Estructura del Proyecto
 
 ```
-📦 FISI-2025-II/
+📦 FisiCollab/
 ├── 📂 config/                  # Configuración de base de datos
 │   └── database.js            # Pool de conexiones MySQL
 ├── 📂 models/                  # Capa de datos (ORM manual)
@@ -409,7 +409,7 @@ npm install
 ## 📚 Documentación Adicional
 
 - 📖 **[DESPLIEGUE-LOCAL.md](DESPLIEGUE-LOCAL.md)** - Guía completa de despliegue
-- 🐙 **[GitHub Repository](https://github.com/Crypt0xDev/FISI-2025-II)** - Código fuente
+- 🐙 **[GitHub Repository](https://github.com/FISI-2025-II/FisiCollab)** - Código fuente
 
 ---
 
@@ -444,6 +444,6 @@ Desarrollado con ❤️ para facilitar el aprendizaje colaborativo
 
 **Hecho con Node.js, Express, MySQL y mucho ☕**
 
-[![GitHub](https://img.shields.io/badge/GitHub-Crypt0xDev-181717?style=for-the-badge&logo=github)](https://github.com/Crypt0xDev/FISI-2025-II)
+[![GitHub](https://img.shields.io/badge/GitHub-FISI--2025--II-181717?style=for-the-badge&logo=github)](https://github.com/FISI-2025-II/FisiCollab)
 
 </div>

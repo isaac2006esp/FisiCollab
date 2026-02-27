@@ -1,5 +1,5 @@
 {
-  "name": "repositorio-colaborativo-recursos",
+  "name": "fisicollab",
   "version": "1.0.0",
   "description": "Plataforma colaborativa para compartir recursos académicos - Promoción 2025",
   "main": "server.js",
