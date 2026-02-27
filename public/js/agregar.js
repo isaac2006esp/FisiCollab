@@ -1,5 +1,5 @@
 /**
- * AGREGAR-RECURSO.JS
+ * AGREGAR.JS
  * Maneja el formulario para agregar nuevos recursos
  */
 

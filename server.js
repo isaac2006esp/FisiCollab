@@ -1,124 +1,162 @@
 /**
- * SERVIDOR PRINCIPAL - server.js
- * Aplicación Express para el Repositorio Colaborativo de Recursos
- * Promoción 2025
+ * @fileoverview Servidor principal de la aplicación
+ * @module server
+ * @requires express
+ * @requires express-session
+ * @requires body-parser
+ * @requires dotenv
  */
 
-// Importar dependencias
 const express = require('express');
 const session = require('express-session');
 const bodyParser = require('body-parser');
 const path = require('path');
 require('dotenv').config();
 
-// Importar configuración de base de datos
-const { testConnection } = require('./config/database');
-
-// Importar rutas
+const { testConnection, closePool } = require('./config/database');
 const usuariosRoutes = require('./routes/usuarios');
 const recursosRoutes = require('./routes/recursos');
 
-// Crear la aplicación Express
+// Constantes de configuración
+const PORT = parseInt(process.env.PORT, 10) || 3000;
+const NODE_ENV = process.env.NODE_ENV || 'development';
+const SESSION_SECRET = process.env.SESSION_SECRET || 'mi_secreto_super_seguro_2025';
+const SESSION_MAX_AGE = 24 * 60 * 60 * 1000; // 24 horas en milisegundos
+
+// Crear aplicación Express
 const app = express();
-const PORT = process.env.PORT || 3000;
 
 // ============================================
 // CONFIGURACIÓN DE MIDDLEWARES
 // ============================================
 
-// 1. Body parser - para leer datos del body en formato JSON y URL-encoded
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+/**
+ * 1. Parser de cuerpo de peticiones
+ * - JSON: para APIs REST
+ * - URL-encoded: para formularios HTML
+ */
+app.use(bodyParser.json({ limit: '10mb' }));
+app.use(bodyParser.urlencoded({ extended: true, limit: '10mb' }));
 
-// 2. Archivos estáticos - servir CSS, JS, imágenes desde la carpeta public
+/**
+ * 2. Archivos estáticos
+ * Sirve archivos CSS, JavaScript e imágenes desde /public
+ */
 app.use(express.static(path.join(__dirname, 'public')));
 
-// 3. Configuración de sesiones - para mantener usuarios autenticados
+/**
+ * 3. Configuración de sesiones
+ * Mantiene el estado de autenticación del usuario
+ */
 app.use(session({
-    secret: process.env.SESSION_SECRET || 'mi_secreto_super_seguro_2025',
+    secret: SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
+    name: 'sessionId',
     cookie: {
-        secure: false, // Cambiar a true en producción con HTTPS
-        httpOnly: true,
-        maxAge: 1000 * 60 * 60 * 24 // 24 horas
+        secure: NODE_ENV === 'production', // HTTPS en producción
+        httpOnly: true, // Previene acceso desde JavaScript
+        maxAge: SESSION_MAX_AGE,
+        sameSite: 'strict' // Protección CSRF
     }
 }));
 
-// 4. Middleware para logging de peticiones (desarrollo)
-if (process.env.NODE_ENV === 'development') {
+/**
+ * 4. Logger de peticiones (solo en desarrollo)
+ */
+if (NODE_ENV === 'development') {
     app.use((req, res, next) => {
-        console.log(`${req.method} ${req.path}`);
+        const timestamp = new Date().toISOString();
+        console.log(`[${timestamp}] ${req.method} ${req.path}`);
         next();
     });
 }
 
 // ============================================
-// CONFIGURACIÓN DE RUTAS
+// CONFIGURACIÓN DE RUTAS API
 // ============================================
 
-// Rutas de la API
 app.use('/api/usuarios', usuariosRoutes);
 app.use('/api/recursos', recursosRoutes);
 
-// Ruta para verificar el estado del servidor
-app.get('/api/status', (req, res) => {
-    res.json({
-        status: 'online',
-        mensaje: 'Servidor funcionando correctamente',
-        timestamp: new Date()
+/**
+ * Health check endpoint
+ * Verifica el estado del servidor y la conexión a BD
+ */
+app.get('/api/health', async (req, res) => {
+    const dbStatus = await testConnection().catch(() => false);
+    
+    res.status(dbStatus ? 200 : 503).json({
+        status: dbStatus ? 'healthy' : 'unhealthy',
+        database: dbStatus ? 'connected' : 'disconnected',
+        timestamp: new Date().toISOString(),
+        uptime: process.uptime(),
+        environment: NODE_ENV
     });
 });
 
 // ============================================
-// RUTAS PARA SERVIR LAS PÁGINAS HTML
+// RUTAS PARA PÁGINAS HTML
 // ============================================
 
-// Página de inicio / login
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'views', 'login.html'));
-});
+const sendPageSecure = (filename) => {
+    return (_req, res, next) => {
+        const filePath = path.join(__dirname, 'views', filename);
+        res.sendFile(filePath, (err) => {
+            if (err) {
+                next(err);
+            }
+        });
+    };
+};
 
-// Página de registro
-app.get('/registro', (req, res) => {
-    res.sendFile(path.join(__dirname, 'views', 'registro.html'));
-});
-
-// Página principal (dashboard)
-app.get('/dashboard', (req, res) => {
-    res.sendFile(path.join(__dirname, 'views', 'dashboard.html'));
-});
-
-// Página para agregar recursos
-app.get('/agregar-recurso', (req, res) => {
-    res.sendFile(path.join(__dirname, 'views', 'agregar-recurso.html'));
-});
+app.get('/', sendPageSecure('login.html'));
+app.get('/registro', sendPageSecure('registro.html'));
+app.get('/dashboard', sendPageSecure('dashboard.html'));
+app.get('/agregar', sendPageSecure('agregar.html'));
 
 // ============================================
 // MANEJO DE ERRORES
 // ============================================
 
-// Ruta no encontrada (404)
+/**
+ * 404 - Ruta no encontrada
+ */
 app.use((req, res) => {
     res.status(404).json({
-        error: 'Ruta no encontrada',
-        ruta: req.path
+        error: 'Recurso no encontrado',
+        path: req.path,
+        method: req.method,
+        timestamp: new Date().toISOString()
     });
 });
 
-// Manejador de errores general
-app.use((err, req, res, next) => {
-    console.error('Error:', err.stack);
-    res.status(500).json({
-        error: 'Error interno del servidor',
-        mensaje: process.env.NODE_ENV === 'development' ? err.message : 'Ocurrió un error'
+/**
+ * Manejador global de errores
+ */
+app.use((err, req, res, _next) => {
+    console.error('Error no manejado:', err);
+    
+    const statusCode = err.statusCode || 500;
+    const message = NODE_ENV === 'production' 
+        ? 'Error interno del servidor' 
+        : err.message;
+    
+    res.status(statusCode).json({
+        error: message,
+        ...(NODE_ENV === 'development' && { stack: err.stack })
     });
 });
 
 // ============================================
-// INICIAR EL SERVIDOR
+// INICIO DEL SERVIDOR
 // ============================================
 
+/**
+ * Inicializa y arranca el servidor
+ * @async
+ * @function iniciarServidor
+ */
 const iniciarServidor = async () => {
     try {
         // Verificar conexión a la base de datos
@@ -126,48 +164,89 @@ const iniciarServidor = async () => {
         const dbConectada = await testConnection();
         
         if (!dbConectada) {
-            console.error('⚠️  Advertencia: No se pudo conectar a la base de datos');
+            console.error('⚠️  ADVERTENCIA: No se pudo conectar a la base de datos');
             console.error('   Verifica tu configuración en el archivo .env');
-            console.error('   El servidor iniciará pero las funciones de BD no funcionarán');
+            console.error('   El servidor iniciará pero las funciones de BD no funcionarán\n');
         }
 
-        // Iniciar el servidor Express
-        app.listen(PORT, () => {
+        // Iniciar servidor HTTP
+        const server = app.listen(PORT, () => {
             console.log('');
             console.log('╔════════════════════════════════════════════════════════╗');
             console.log('║  🚀 Servidor iniciado exitosamente                    ║');
             console.log('║                                                        ║');
-            console.log(`║  📍 URL: http://localhost:${PORT}                        ║`);
+            console.log(`║  📍 URL: http://localhost:${PORT.toString().padEnd(25)}║`);
+            console.log(`║  🌍 Entorno: ${NODE_ENV.padEnd(35)}║`);
             console.log('║                                                        ║');
             console.log('║  📚 Repositorio Colaborativo de Recursos              ║');
             console.log('║     Promoción 2025                                     ║');
             console.log('║                                                        ║');
-            console.log('║  Rutas disponibles:                                    ║');
+            console.log('║  Endpoints disponibles:                                ║');
             console.log(`║  • http://localhost:${PORT}/ (Login)                     ║`);
             console.log(`║  • http://localhost:${PORT}/registro                     ║`);
             console.log(`║  • http://localhost:${PORT}/dashboard                    ║`);
+            console.log(`║  • http://localhost:${PORT}/api/health (Status)          ║`);
             console.log('║                                                        ║');
             console.log('║  Presiona Ctrl+C para detener el servidor             ║');
             console.log('╚════════════════════════════════════════════════════════╝');
             console.log('');
         });
 
+        // Configurar cierre graceful
+        configurarCierreGraceful(server);
+
     } catch (error) {
-        console.error('❌ Error al iniciar el servidor:', error);
+        console.error('❌ Error fatal al iniciar el servidor:', error);
         process.exit(1);
     }
 };
 
-// Ejecutar el servidor
+/**
+ * Configura el cierre graceful del servidor
+ * @param {Object} server - Instancia del servidor HTTP
+ */
+const configurarCierreGraceful = (server) => {
+    const cerrarServidor = async (signal) => {
+        console.log(`\n👋 Señal ${signal} recibida. Cerrando servidor de forma segura...`);
+        
+        // Cerrar servidor HTTP (deja de aceptar nuevas conexiones)
+        server.close(async () => {
+            console.log('✓ Servidor HTTP cerrado');
+            
+            try {
+                // Cerrar conexiones a la base de datos
+                await closePool();
+                console.log('✓ Conexiones de BD cerradas');
+                console.log('👋 Servidor detenido correctamente\n');
+                process.exit(0);
+            } catch (error) {
+                console.error('Error al cerrar conexiones:', error);
+                process.exit(1);
+            }
+        });
+
+        // Si el servidor no cierra en 10 segundos, forzar cierre
+        setTimeout(() => {
+            console.error('⚠️  Forzando cierre del servidor...');
+            process.exit(1);
+        }, 10000);
+    };
+
+    // Manejar señales de terminación
+    process.on('SIGTERM', () => cerrarServidor('SIGTERM'));
+    process.on('SIGINT', () => cerrarServidor('SIGINT'));
+    
+    // Manejar errores no capturados
+    process.on('uncaughtException', (error) => {
+        console.error('💥 Error no capturado:', error);
+        cerrarServidor('uncaughtException');
+    });
+    
+    process.on('unhandledRejection', (reason, promise) => {
+        console.error('💥 Promesa rechazada no manejada:', reason);
+        cerrarServidor('unhandledRejection');
+    });
+};
+
+// Ejecutar servidor
 iniciarServidor();
-
-// Manejo de cierre graceful
-process.on('SIGTERM', () => {
-    console.log('👋 Señal SIGTERM recibida, cerrando servidor...');
-    process.exit(0);
-});
-
-process.on('SIGINT', () => {
-    console.log('\n👋 Servidor detenido por el usuario');
-    process.exit(0);
-});

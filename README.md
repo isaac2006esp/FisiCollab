@@ -1,283 +1,449 @@
-# 📚 Repositorio Colaborativo de Recursos - Promoción 2025
+<div align="center">
 
-Plataforma web colaborativa para compartir recursos académicos entre estudiantes de FISI.
+# 📚 Repositorio Colaborativo de Recursos
+
+### Plataforma Web Full-Stack para Compartir Recursos Académicos
+
+[![Node.js](https://img.shields.io/badge/Node.js-25.6.1-339933?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org/)
+[![Express](https://img.shields.io/badge/Express-4.18-000000?style=for-the-badge&logo=express&logoColor=white)](https://expressjs.com/)
+[![MySQL](https://img.shields.io/badge/MySQL-8.0-4479A1?style=for-the-badge&logo=mysql&logoColor=white)](https://www.mysql.com/)
+[![JavaScript](https://img.shields.io/badge/JavaScript-ES6+-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+
+**Proyecto Académico - Promoción 2025 FISI**
+
+[🚀 Quick Start](#-quick-start) • [✨ Features](#-features) • [🛠️ Tech Stack](#️-tech-stack) • [📖 API](#-api-endpoints)
+
+---
+
+</div>
 
 ## 🎯 Descripción
 
-Este es un proyecto web full-stack que permite a los estudiantes:
-- ✅ Registrarse e iniciar sesión de forma segura
-- ➕ Agregar recursos académicos (videos, documentos, códigos, etc.)
-- 📋 Ver lista completa de recursos compartidos
-- 🔍 Filtrar recursos por curso/materia
-- 👤 Identificar al autor de cada recurso
+Plataforma colaborativa desarrollada con arquitectura **MVC profesional** que permite a estudiantes universitarios compartir y descubrir recursos académicos de manera eficiente y organizada.
 
-## 🛠️ Tecnologías Utilizadas
+### 🌟 Características Principales
+
+<table>
+<tr>
+<td width="50%">
+
+#### 👤 Gestión de Usuarios
+- ✅ Registro con validación de email
+- 🔐 Autenticación segura (bcrypt)
+- 🔄 Sesiones persistentes
+- 🛡️ Protección CSRF
+
+</td>
+<td width="50%">
+
+#### 📁 Gestión de Recursos
+- ➕ Crear y compartir recursos
+- 🔍 Filtrado por curso/materia
+- 📊 Vista organizada por categorías
+- ✏️ Editar y eliminar propios recursos
+
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+#### 🎨 Interfaz Moderna
+- 📱 Diseño responsive
+- 🌈 Gradientes dinámicos
+- ⚡ Carga rápida
+- 💫 Animaciones suaves
+
+</td>
+<td width="50%">
+
+#### 🔧 Código Profesional
+- 📝 JSDoc completo
+- 🏗️ Arquitectura MVC
+- ✨ Código limpio (Clean Code)
+- 🎯 Validaciones robustas
+
+</td>
+</tr>
+</table>
+
+---
+
+## 🚀 Quick Start
+
+### Requisitos Previos
+
+- [Node.js](https://nodejs.org/) v14+ instalado ✅
+- [MySQL Server](https://dev.mysql.com/downloads/mysql/) 5.7+ corriendo ✅
+- Git (opcional)
+
+### Instalación en 3 Pasos
+
+```bash
+# 1. Clonar el repositorio (o descargar ZIP)
+git clone https://github.com/Crypt0xDev/FISI-2025-II.git
+cd FISI-2025-II
+
+# 2. Configuración automática (instala dependencias + crea BD)
+npm run setup
+
+# 3. Iniciar servidor
+npm start
+```
+
+<div align="center">
+
+**¡Listo! Abre http://localhost:3000 en tu navegador** 🎉
+
+</div>
+
+---
+
+## 🛠️ Tech Stack
+
+<div align="center">
 
 ### Backend
-- **Node.js** - Entorno de ejecución de JavaScript
-- **Express** - Framework web para Node.js
-- **MySQL** - Base de datos relacional
-- **mysql2** - Driver de MySQL con soporte para promesas
-- **bcryptjs** - Encriptación de contraseñas
-- **express-session** - Manejo de sesiones de usuario
-- **dotenv** - Configuración de variables de entorno
+![Node.js](https://img.shields.io/badge/Node.js-339933?style=flat-square&logo=node.js&logoColor=white)
+![Express](https://img.shields.io/badge/Express-000000?style=flat-square&logo=express&logoColor=white)
+![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=flat-square&logo=mysql&logoColor=white)
+![bcrypt](https://img.shields.io/badge/bcryptjs-2.4.3-orange?style=flat-square)
 
 ### Frontend
-- **HTML5** - Estructura de las páginas
-- **CSS3** - Estilos y diseño responsive
-- **JavaScript (Vanilla)** - Lógica del cliente
+![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=css3&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black)
+
+### Desarrollo
+![Nodemon](https://img.shields.io/badge/Nodemon-76D04B?style=flat-square&logo=nodemon&logoColor=white)
+![Git](https://img.shields.io/badge/Git-F05032?style=flat-square&logo=git&logoColor=white)
+![dotenv](https://img.shields.io/badge/.env-ECD53F?style=flat-square&logo=dotenv&logoColor=black)
+
+</div>
+
+---
 
 ## 📁 Estructura del Proyecto
 
 ```
-FISI-2025-II/
-│
-├── config/                 # Configuraciones
-│   └── database.js        # Conexión a MySQL
-│
-├── models/                # Modelos de datos (Capa de datos)
-│   ├── Usuario.js        # Modelo de usuarios
-│   └── Recurso.js        # Modelo de recursos
-│
-├── controllers/           # Controladores (Lógica de negocio)
-│   ├── usuarioController.js
-│   └── recursoController.js
-│
-├── routes/                # Rutas de la API
-│   ├── usuarios.js       # Rutas de usuarios
-│   └── recursos.js       # Rutas de recursos
-│
-├── middleware/            # Middlewares personalizados
-│   └── auth.js           # Verificación de autenticación
-│
-├── views/                 # Páginas HTML
+📦 FISI-2025-II/
+├── 📂 config/                  # Configuración de base de datos
+│   └── database.js            # Pool de conexiones MySQL
+├── 📂 models/                  # Capa de datos (ORM manual)
+│   ├── Usuario.js             # Modelo de usuarios
+│   └── Recurso.js             # Modelo de recursos
+├── 📂 controllers/             # Lógica de negocio
+│   ├── usuarioController.js   # Autenticación y usuarios
+│   └── recursoController.js   # CRUD de recursos
+├── 📂 routes/                  # Rutas de la API
+│   ├── usuarios.js            # Endpoints de usuarios
+│   └── recursos.js            # Endpoints de recursos
+├── 📂 middleware/              # Middlewares personalizados
+│   └── auth.js                # Verificación de autenticación
+├── 📂 views/                   # Vistas HTML
 │   ├── login.html
 │   ├── registro.html
 │   ├── dashboard.html
-│   └── agregar-recurso.html
-│
-├── public/                # Archivos estáticos
-│   ├── css/
-│   │   └── styles.css
-│   ├── js/
-│   │   ├── login.js
-│   │   ├── registro.js
-│   │   ├── dashboard.js
-│   │   └── agregar-recurso.js
-│   └── images/
-│
-├── database/              # Scripts SQL
-│   └── schema.sql        # Creación de tablas
-│
-├── server.js             # Archivo principal del servidor
-├── package.json          # Dependencias del proyecto
-├── .env                  # Variables de entorno (NO subir a Git)
-├── .env.example          # Ejemplo de variables de entorno
-└── README.md             # Documentación
-
+│   └── agregar.html
+├── 📂 public/                  # Archivos estáticos
+│   ├── css/styles.css         # 650+ líneas de estilos
+│   └── js/                    # JavaScript del cliente
+├── 📂 database/
+│   └── schema.sql             # Script de creación de BD
+├── 📄 server.js               # Servidor Express principal
+├── 📄 configurar.js           # Setup automático
+├── 📄 verificar-instalacion.js # Verificador de requisitos
+├── 📄 package.json            # Dependencias
+├── 📄 .env                    # Variables de entorno
+└── 📄 README.md               # Este archivo
 ```
-
-## 🚀 Instalación y Configuración
-
-### Prerrequisitos
-- [Node.js](https://nodejs.org/) (versión 14 o superior)
-- [MySQL](https://www.mysql.com/) (versión 5.7 o superior)
-- [Git](https://git-scm.com/)
-
-### Paso 1: Clonar el repositorio
-
-```bash
-git clone https://github.com/Crypt0xDev/FISI-2025-II.git
-cd FISI-2025-II
-```
-
-### Paso 2: Instalar dependencias
-
-```bash
-npm install
-```
-
-### Paso 3: Configurar la base de datos
-
-1. Abre MySQL desde la terminal o un cliente como MySQL Workbench:
-
-```bash
-mysql -u root -p
-```
-
-2. Ejecuta el script SQL para crear la base de datos y las tablas:
-
-```bash
-source database/schema.sql
-```
-
-O copia y pega el contenido del archivo `database/schema.sql` en tu cliente MySQL.
-
-### Paso 4: Configurar variables de entorno
-
-1. Copia el archivo de ejemplo:
-
-```bash
-cp .env.example .env
-```
-
-2. Edita el archivo `.env` con tus credenciales de MySQL:
-
-```env
-PORT=3000
-NODE_ENV=development
-
-DB_HOST=localhost
-DB_USER=root
-DB_PASSWORD=tu_contraseña_mysql
-DB_NAME=recursos_academicos
-DB_PORT=3306
-
-SESSION_SECRET=cambia_esto_por_algo_seguro
-```
-
-### Paso 5: Iniciar el servidor
-
-**Modo desarrollo (con reinicio automático):**
-```bash
-npm run dev
-```
-
-**Modo producción:**
-```bash
-npm start
-```
-
-El servidor estará disponible en: `http://localhost:3000`
-
-## 📖 Uso de la Aplicación
-
-### 1. Registro de Usuario
-- Accede a `http://localhost:3000/registro`
-- Completa el formulario con:
-  - Nombre completo
-  - Correo electrónico
-  - Contraseña (mínimo 6 caracteres)
-- Haz clic en "Registrarse"
-
-### 2. Iniciar Sesión
-- Accede a `http://localhost:3000/`
-- Ingresa tu email y contraseña
-- Haz clic en "Iniciar Sesión"
-
-### 3. Ver Recursos
-- En el dashboard verás todos los recursos compartidos
-- Usa el filtro para ver recursos de un curso específico
-- Haz clic en "Ver Recurso" para abrir el enlace
-
-### 4. Agregar un Recurso
-- Haz clic en "Agregar Nuevo Recurso"
-- Completa el formulario:
-  - **Título:** Nombre descriptivo del recurso
-  - **Descripción:** Breve explicación del contenido
-  - **Enlace:** URL del recurso (YouTube, Drive, GitHub, etc.)
-  - **Curso:** Materia relacionada
-  - **Tipo:** Categoría del recurso
-- Haz clic en "Guardar Recurso"
-
-## 🔒 Seguridad
-
-- ✅ Contraseñas encriptadas con bcrypt
-- ✅ Protección contra inyección SQL (consultas preparadas)
-- ✅ Validación de datos en cliente y servidor
-- ✅ Sesiones seguras con express-session
-- ✅ Variables de entorno para datos sensibles
-
-## 📊 Modelo de Base de Datos
-
-### Tabla: `usuarios`
-```sql
-- id (INT, PRIMARY KEY, AUTO_INCREMENT)
-- nombre (VARCHAR)
-- email (VARCHAR, UNIQUE)
-- password (VARCHAR, encriptado)
-- fecha_registro (DATETIME)
-```
-
-### Tabla: `recursos`
-```sql
-- id (INT, PRIMARY KEY, AUTO_INCREMENT)
-- titulo (VARCHAR)
-- descripcion (TEXT)
-- enlace (VARCHAR)
-- curso (VARCHAR)
-- tipo (VARCHAR)
-- usuario_id (INT, FOREIGN KEY)
-- fecha_creacion (DATETIME)
-```
-
-## 🧪 API Endpoints
-
-### Usuarios
-| Método | Endpoint | Descripción | Autenticación |
-|--------|----------|-------------|---------------|
-| POST | `/api/usuarios/registro` | Registrar nuevo usuario | No |
-| POST | `/api/usuarios/login` | Iniciar sesión | No |
-| POST | `/api/usuarios/logout` | Cerrar sesión | Sí |
-| GET | `/api/usuarios/me` | Obtener usuario actual | Sí |
-| GET | `/api/usuarios` | Listar todos los usuarios | Sí |
-
-### Recursos
-| Método | Endpoint | Descripción | Autenticación |
-|--------|----------|-------------|---------------|
-| POST | `/api/recursos` | Crear nuevo recurso | Sí |
-| GET | `/api/recursos` | Obtener todos los recursos | No |
-| GET | `/api/recursos?curso=X` | Filtrar por curso | No |
-| GET | `/api/recursos/:id` | Obtener recurso específico | No |
-| GET | `/api/recursos/mis-recursos` | Recursos del usuario | Sí |
-| PUT | `/api/recursos/:id` | Actualizar recurso | Sí |
-| DELETE | `/api/recursos/:id` | Eliminar recurso | Sí |
-| GET | `/api/recursos/cursos/lista` | Obtener cursos únicos | No |
-
-## 👥 Contribución
-
-Para contribuir al proyecto:
-
-1. Fork el repositorio
-2. Crea una rama para tu feature:
-   ```bash
-   git checkout -b feature/nueva-funcionalidad
-   ```
-3. Realiza tus cambios y haz commit:
-   ```bash
-   git commit -m "Agregar nueva funcionalidad"
-   ```
-4. Push a tu rama:
-   ```bash
-   git push origin feature/nueva-funcionalidad
-   ```
-5. Abre un Pull Request
-
-## 🐛 Solución de Problemas
-
-### Error de conexión a MySQL
-- Verifica que MySQL esté corriendo
-- Confirma las credenciales en el archivo `.env`
-- Asegúrate de haber creado la base de datos
-
-### Puerto en uso
-- Cambia el puerto en `.env` si el 3000 está ocupado
-
-### Módulos no encontrados
-- Ejecuta `npm install` nuevamente
-
-## 📝 Integrantes del Equipo
-
-- [Agregar nombres de los integrantes]
-
-## 📄 Licencia
-
-Este proyecto es de código abierto para fines educativos.
-
-## 🙏 Agradecimientos
-
-Proyecto desarrollado como parte del curso FISI 2025-II.
 
 ---
 
-**¿Tienes dudas o sugerencias?** Abre un *issue* en el repositorio.
+## ✨ Features
+
+### 🔐 Sistema de Autenticación
+
+```javascript
+✓ Hash de contraseñas con bcrypt (salt rounds: 10)
+✓ Sesiones seguras con express-session
+✓ Middleware de autenticación
+✓ Protección CSRF (sameSite: 'strict')
+✓ Validación de email con regex
+✓ Mensajes de error informativos
+```
+
+### 📚 Gestión de Recursos
+
+```javascript
+✓ CRUD completo de recursos académicos
+✓ Tipos: Video, Documento, Código, Curso Online, Presentación
+✓ Validación de URLs con regex
+✓ Filtrado dinámico por curso
+✓ Búsqueda por usuario
+✓ Lista de cursos únicos
+✓ Verificación de propiedad (editar/eliminar)
+```
+
+### 🎨 Interfaz de Usuario
+
+```css
+✓ Diseño responsive (mobile-first)
+✓ Gradientes dinámicos con animaciones
+✓ Cards con hover effects
+✓ Grid system adaptativo
+✓ Formularios con validación visual
+✓ Mensajes de feedback al usuario
+✓ Carga asíncrona con Fetch API
+```
+
+---
+
+## 📖 Comandos
+
+```bash
+# Configuración automática (primera vez)
+npm run setup              # Configura MySQL y crea BD
+
+# Verificar instalación
+npm run verify             # Verifica requisitos del sistema
+
+# Desarrollo
+npm run dev                # Inicia con nodemon (auto-reload)
+
+# Producción
+npm start                  # Inicia servidor en modo producción
+```
+
+---
+
+## 📡 API Endpoints
+
+### Autenticación
+```http
+POST   /api/usuarios/registro     # Registrar nuevo usuario
+POST   /api/usuarios/login        # Iniciar sesión
+POST   /api/usuarios/logout       # Cerrar sesión
+GET    /api/usuarios/me           # Usuario actual
+GET    /api/usuarios              # Listar todos
+```
+
+### Recursos
+```http
+GET    /api/recursos              # Obtener todos los recursos
+GET    /api/recursos?curso=X      # Filtrar por curso
+GET    /api/recursos/:id          # Obtener recurso por ID
+GET    /api/recursos/mis-recursos # Recursos del usuario actual
+POST   /api/recursos              # Crear nuevo recurso
+PUT    /api/recursos/:id          # Actualizar recurso
+DELETE /api/recursos/:id         # Eliminar recurso
+GET    /api/recursos/cursos/lista # Obtener cursos únicos
+```
+
+### Sistema
+```http
+GET    /api/health                # Estado del servidor y BD
+```
+
+### Ejemplo de Uso
+
+```bash
+# Health check
+curl http://localhost:3000/api/health
+
+# Login
+curl -X POST http://localhost:3000/api/usuarios/login \
+  -H "Content-Type: application/json" \
+  -d '{"email":"usuario@fisi.edu.pe","password":"password123"}'
+
+# Obtener recursos
+curl http://localhost:3000/api/recursos
+```
+
+---
+
+## ⚙️ Configuración
+
+### Variables de Entorno (.env)
+
+```env
+# Servidor
+PORT=3000
+NODE_ENV=development
+
+# Base de Datos
+DB_HOST=localhost
+DB_USER=root
+DB_PASSWORD=tu_contraseña
+DB_NAME=recursos_academicos
+DB_PORT=3306
+
+# Sesión
+SESSION_SECRET=tu_secreto_super_seguro
+```
+
+---
+
+## 🏗️ Arquitectura MVC
+
+```
+┌─────────────┐
+│   Cliente   │ (Views HTML + Public JS/CSS)
+└──────┬──────┘
+       │ HTTP Request
+       ▼
+┌─────────────┐
+│   Routes    │ (usuarios.js, recursos.js)
+└──────┬──────┘
+       │ req, res
+       ▼
+┌─────────────┐
+│ Controllers │ (usuarioController, recursoController)
+└──────┬──────┘
+       │ Business Logic
+       ▼
+┌─────────────┐
+│   Models    │ (Usuario.js, Recurso.js)
+└──────┬──────┘
+       │ SQL Queries
+       ▼
+┌─────────────┐
+│  Database   │ (MySQL)
+└─────────────┘
+```
+
+### Flujo de Autenticación
+
+```
+Usuario → /login → POST /api/usuarios/login
+                    ↓
+            Verificar credenciales
+                    ↓
+            Crear sesión (express-session)
+                    ↓
+            Redirect a /dashboard
+                    ↓
+            Middleware verifica sesión
+                    ↓
+            Acceso permitido ✓
+```
+
+---
+
+## 🔒 Seguridad
+
+### Características de Seguridad Implementadas
+
+- ✅ **Contraseñas hasheadas** con bcrypt (salt rounds: 10)
+- ✅ **Sessions seguras** con `httpOnly`, `sameSite: 'strict'`
+- ✅ **Validación de inputs** en frontend y backend
+- ✅ **Protección SQL Injection** con prepared statements
+- ✅ **CORS configurado** según entorno
+- ✅ **Variables de entorno** para datos sensibles
+
+### Validaciones Implementadas
+
+```javascript
+// Email
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+// URL de recursos
+const URL_REGEX = /^(https?:\/\/)?([\w\d-]+\.)+[\w\d]{2,}.*$/;
+
+// Constraints
+const MIN_PASSWORD_LENGTH = 6;
+const MAX_TITULO_LENGTH = 200;
+const MAX_DESCRIPCION_LENGTH = 1000;
+const BCRYPT_SALT_ROUNDS = 10;
+```
+
+---
+
+## 🎓 Usuarios de Prueba
+
+Si ejecutaste el script completo `schema.sql`:
+
+| Email | Contraseña | Recursos |
+|-------|------------|----------|
+| juan@fisi.edu.pe | password123 | 2 |
+| maria@fisi.edu.pe | password123 | 2 |
+| carlos@fisi.edu.pe | password123 | 1 |
+
+---
+
+## 🐛 Troubleshooting
+
+### MySQL no conecta
+
+```bash
+# Verificar que MySQL esté corriendo
+netstat -ano | findstr :3306
+
+# Verificar credenciales
+mysql -u root -p
+
+# Ver logs del servidor
+npm start
+```
+
+### Puerto 3000 en uso
+
+```bash
+# Cambiar puerto en .env
+PORT=3001
+
+# O detener proceso
+netstat -ano | findstr :3000
+taskkill /PID [numero] /F
+```
+
+### Error "Cannot find module"
+
+```bash
+# Reinstalar dependencias
+rm -rf node_modules package-lock.json
+npm install
+```
+
+---
+
+## 📚 Documentación Adicional
+
+- 📖 **[DESPLIEGUE-LOCAL.md](DESPLIEGUE-LOCAL.md)** - Guía completa de despliegue
+- 🐙 **[GitHub Repository](https://github.com/Crypt0xDev/FISI-2025-II)** - Código fuente
+
+---
+
+## 🤝 Contribuir
+
+1. Fork el proyecto
+2. Crea una rama (`git checkout -b feature/mejora`)
+3. Commit tus cambios (`git commit -m 'Agregar nueva feature'`)
+4. Push a la rama (`git push origin feature/mejora`)
+5. Abre un Pull Request
+
+---
+
+## 📄 Licencia
+
+Proyecto académico para **Facultad de Ingeniería de Sistemas - FISI**  
+Universidad Nacional Mayor de San Marcos (UNMSM)
+
+---
+
+## 👥 Equipo
+
+**Promoción 2025 - FISI**
+
+Desarrollado con ❤️ para facilitar el aprendizaje colaborativo
+
+---
+
+<div align="center">
+
+### ⭐ Si te ayudó este proyecto, dale una estrella en GitHub
+
+**Hecho con Node.js, Express, MySQL y mucho ☕**
+
+[![GitHub](https://img.shields.io/badge/GitHub-Crypt0xDev-181717?style=for-the-badge&logo=github)](https://github.com/Crypt0xDev/FISI-2025-II)
+
+</div>
