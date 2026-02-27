@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agregar Recurso - Repositorio de Recursos</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <!-- Barra de navegación -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <h2>📚 Repositorio de Recursos</h2>
+            </div>
+            <div class="nav-links">
+                <a href="/dashboard" class="btn btn-secondary">← Volver al Dashboard</a>
+                <button id="btnCerrarSesion" class="btn btn-secondary">Cerrar Sesión</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contenido principal -->
+    <div class="container">
+        <div class="form-container" style="max-width: 700px;">
+            <div class="card">
+                <h2>➕ Agregar Nuevo Recurso</h2>
+                <p class="text-muted">Comparte un recurso académico con tus compañeros</p>
+
+                <!-- Mensaje de error/éxito -->
+                <div id="mensaje" class="mensaje oculto"></div>
+
+                <form id="formAgregarRecurso">
+                    <div class="form-group">
+                        <label for="titulo">Título del Recurso *</label>
+                        <input 
+                            type="text" 
+                            id="titulo" 
+                            name="titulo" 
+                            placeholder="Ej: Tutorial de JavaScript"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="descripcion">Descripción *</label>
+                        <textarea 
+                            id="descripcion" 
+                            name="descripcion" 
+                            rows="4"
+                            placeholder="Describe brevemente el recurso y qué temas cubre..."
+                            required
+                        ></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="enlace">Enlace / URL *</label>
+                        <input 
+                            type="url" 
+                            id="enlace" 
+                            name="enlace" 
+                            placeholder="https://..."
+                            required
+                        >
+                        <small class="form-help">Puede ser un enlace a YouTube, Google Drive, GitHub, etc.</small>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="curso">Curso / Materia *</label>
+                            <input 
+                                type="text" 
+                                id="curso" 
+                                name="curso" 
+                                placeholder="Ej: Programación Web"
+                                list="cursosLista"
+                                required
+                            >
+                            <datalist id="cursosLista">
+                                <option value="Programación Web">
+                                <option value="Base de Datos">
+                                <option value="Algoritmos">
+                                <option value="Matemática">
+                                <option value="Física">
+                                <option value="Estructuras de Datos">
+                            </datalist>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="tipo">Tipo de Recurso *</label>
+                            <select id="tipo" name="tipo" required>
+                                <option value="">Selecciona...</option>
+                                <option value="Video">Video</option>
+                                <option value="Documento">Documento</option>
+                                <option value="Código">Código/Proyecto</option>
+                                <option value="Curso Online">Curso Online</option>
+                                <option value="Artículo">Artículo</option>
+                                <option value="Libro">Libro</option>
+                                <option value="Otro">Otro</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">
+                            💾 Guardar Recurso
+                        </button>
+                        <a href="/dashboard" class="btn btn-outline">
+                            Cancelar
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>Proyecto Colaborativo - FISI 2025-II</p>
+    </footer>
+
+    <script src="/js/agregar-recurso.js"></script>
+</body>
+</html>

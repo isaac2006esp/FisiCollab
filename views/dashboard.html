@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Repositorio de Recursos</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <!-- Barra de navegación -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <h2>📚 Repositorio de Recursos</h2>
+            </div>
+            <div class="nav-links">
+                <span id="nombreUsuario" class="user-name">Cargando...</span>
+                <button id="btnCerrarSesion" class="btn btn-secondary">Cerrar Sesión</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contenido principal -->
+    <div class="container">
+        <div class="dashboard-container">
+            <!-- Sección de bienvenida y acciones -->
+            <div class="dashboard-header">
+                <h1>Recursos Académicos Compartidos</h1>
+                <a href="/agregar-recurso" class="btn btn-success">
+                    ➕ Agregar Nuevo Recurso
+                </a>
+            </div>
+
+            <!-- Mensaje de alerta -->
+            <div id="mensaje" class="mensaje oculto"></div>
+
+            <!-- Filtros -->
+            <div class="filters-section">
+                <div class="filter-group">
+                    <label for="filtroCurso">Filtrar por curso:</label>
+                    <select id="filtroCurso" class="form-select">
+                        <option value="todos">Todos los cursos</option>
+                    </select>
+                </div>
+                <button id="btnActualizar" class="btn btn-secondary">🔄 Actualizar</button>
+            </div>
+
+            <!-- Contador de recursos -->
+            <div class="stats-section">
+                <div class="stat-card">
+                    <span class="stat-number" id="totalRecursos">0</span>
+                    <span class="stat-label">Recursos Totales</span>
+                </div>
+            </div>
+
+            <!-- Lista de recursos -->
+            <div id="listaRecursos" class="recursos-grid">
+                <!-- Los recursos se cargarán dinámicamente aquí -->
+                <div class="loading">Cargando recursos...</div>
+            </div>
+
+            <!-- Mensaje cuando no hay recursos -->
+            <div id="sinRecursos" class="sin-recursos oculto">
+                <p>📭 No hay recursos disponibles</p>
+                <p>Sé el primero en agregar un recurso</p>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>Proyecto Colaborativo - FISI 2025-II</p>
+    </footer>
+
+    <script src="/js/dashboard.js"></script>
+</body>
+</html>
